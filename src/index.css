@@ -1,0 +1,260 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-marker: 'Permanent Marker', cursive;
+  --font-hand: 'Caveat', cursive;
+  --font-hand2: 'Patrick Hand', cursive;
+  --font-type: 'Special Elite', monospace;
+  --font-light: 'Shadows Into Light', cursive;
+
+  --color-paper: #f3ecdc;
+  --color-ink: #2a2420;
+  --color-red: #d23b2c;
+  --color-kraft: #d8c39a;
+  --color-orange: #e0863a;
+}
+
+:root {
+  --paper: #f3ecdc;
+  --paper-2: #fbf7ec;
+  --ink: #2a2420;
+  --ink-soft: #5b5046;
+  --red: #d23b2c;
+  --kraft: #d8c39a;
+  --orange: #e0863a;
+  --line: #b9d0e8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-hand2);
+  font-size: 1.05rem;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Graph-paper notebook background (full page) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 26px 26px;
+  opacity: 0.35;
+}
+
+/* Warm paper vignette + subtle grain */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(120, 90, 50, 0.12) 100%);
+}
+
+::selection {
+  background: var(--red);
+  color: var(--paper-2);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--kraft);
+  border-radius: 0;
+  border: 3px solid var(--paper);
+}
+
+/* ── Font helpers ─────────────────────────── */
+.font-marker { font-family: var(--font-marker); }
+.font-hand { font-family: var(--font-hand); }
+.font-hand2 { font-family: var(--font-hand2); }
+.font-type { font-family: var(--font-type); }
+.font-light { font-family: var(--font-light); }
+
+.text-red-marker { color: var(--red); }
+
+/* ── Paper card / page ────────────────────── */
+.paper {
+  background: var(--paper-2);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 25px, rgba(180, 150, 100, 0.06) 26px);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.04),
+    0 12px 28px rgba(80, 60, 30, 0.14);
+  border: 1px solid rgba(120, 95, 60, 0.12);
+}
+
+/* Tape strip (use on ::before/::after via .tape-top etc.) */
+.tape {
+  position: absolute;
+  width: 92px;
+  height: 28px;
+  background: rgba(228, 214, 160, 0.55);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(0.5px);
+}
+.tape::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 6px,
+    rgba(255, 255, 255, 0.25) 6px,
+    rgba(255, 255, 255, 0.25) 7px
+  );
+}
+
+/* Polaroid frame */
+.polaroid {
+  background: #fffdf6;
+  padding: 12px 12px 46px;
+  box-shadow: 0 10px 22px rgba(60, 45, 20, 0.28);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* Rubber stamp look */
+.stamp {
+  font-family: var(--font-marker);
+  color: var(--red);
+  border: 3px solid var(--red);
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  opacity: 0.85;
+  mix-blend-mode: multiply;
+  box-shadow: inset 0 0 0 1px rgba(210, 59, 44, 0.3);
+}
+
+/* Sticky note */
+.sticky {
+  background: #fdf2a8;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.15);
+  background-image: linear-gradient(180deg, #fef6b4, #f6e891);
+}
+
+/* Kraft paper */
+.kraft {
+  background: #e8d7b0;
+  background-image:
+    radial-gradient(rgba(150, 120, 70, 0.12) 1px, transparent 1px);
+  background-size: 6px 6px;
+  box-shadow: 2px 5px 14px rgba(60, 45, 20, 0.22);
+}
+
+/* ── Animations ───────────────────────────── */
+
+/* hand-drawn SVG paths draw themselves */
+.draw-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.1s ease forwards;
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* gentle wiggle for taped photos */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(var(--rot, -3deg)); }
+  50% { transform: rotate(calc(var(--rot, -3deg) + 2deg)); }
+}
+.wiggle:hover {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+/* film strip marquee */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 32s linear infinite; }
+
+/* flip card — revela el dorso al pasar el mouse (o al tocar en mobile) */
+.flip {
+  perspective: 1300px;
+}
+.flip-inner {
+  position: relative;
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+}
+.flip:hover .flip-inner,
+.flip.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+
+/* blinking typewriter caret */
+@keyframes blink { 50% { opacity: 0; } }
+.caret { animation: blink 1s step-end infinite; }
+
+/* scribble underline draws on view */
+.scribble {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='12'%3E%3Cpath d='M2 8 C40 2 80 12 120 6 C160 1 190 9 198 5' stroke='%23e0863a' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 10px;
+  padding-bottom: 6px;
+}
+
+/* Custom INK cursor (desktop only) */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+  }
+  .cursor-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--red);
+  }
+  .cursor-ring {
+    width: 30px;
+    height: 30px;
+    border: 2px dashed var(--ink);
+    transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .draw-path { stroke-dashoffset: 0; }
+}
