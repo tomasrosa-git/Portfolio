@@ -1,45 +1,31 @@
-import { motion } from 'framer-motion'
-import { GraduationCap } from 'lucide-react'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
 import { education } from '../data'
-import { Pushpin } from './Doodles'
 
 export default function Education() {
   return (
-    <section id="education" className="relative mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
-      <SectionHeading index="04" kicker="dónde aprendí" title="Formación académica" />
+    <section id="education" className="relative mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-20">
+      <SectionHeading index="04" title="Formación" note="UTN FRVM" />
 
-      <div className="relative ml-3 border-l-2 border-dashed border-[var(--ink)]/40 pl-8">
+      <div className="border-t border-[var(--rule)]">
         {education.map((e, i) => (
-          <Reveal key={e.title} delay={i * 0.1}>
-            <div className="relative pb-12 last:pb-0">
-              {/* chincheta que sujeta la ficha a la línea */}
-              <Pushpin
-                className="absolute -left-[46px] top-1 h-6 w-6"
-                color={e.current ? 'var(--orange)' : 'var(--red)'}
-              />
+          <Reveal key={e.title} delay={i * 0.08}>
+            <article className="grid gap-4 border-b border-[var(--rule)] py-8 sm:grid-cols-[9rem_1fr] sm:gap-8">
+              <div className="flex items-start gap-3">
+                <span className="label whitespace-nowrap">{e.period}</span>
+                {e.current && (
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
+                )}
+              </div>
 
-              <motion.div
-                whileHover={{ rotate: 0 }}
-                style={{ transform: `rotate(${i % 2 ? 0.8 : -0.8}deg)` }}
-                className="paper rounded-sm p-6"
-              >
-                <div className="mb-1 flex flex-wrap items-center gap-3">
-                  <span className="inline-flex items-center gap-1.5 font-hand text-2xl text-red-marker">
-                    <GraduationCap size={20} /> {e.period}
-                  </span>
-                  {e.current && (
-                    <span className="stamp text-xs">EN CURSO</span>
-                  )}
-                </div>
-                <h3 className="font-marker text-2xl text-[var(--ink)]">{e.title}</h3>
-                <p className="mt-0.5 font-hand2 text-lg text-[var(--ink-soft)]">{e.place}</p>
-                <p className="mt-2 font-hand2 text-lg leading-relaxed text-[var(--ink-soft)]">
+              <div>
+                <h3 className="font-display text-2xl">{e.title}</h3>
+                <p className="mt-1 text-sm text-[var(--ink-muted)]">{e.place}</p>
+                <p className="mt-3 max-w-prose text-sm leading-relaxed text-[var(--ink-muted)]">
                   {e.detail}
                 </p>
-              </motion.div>
-            </div>
+              </div>
+            </article>
           </Reveal>
         ))}
       </div>

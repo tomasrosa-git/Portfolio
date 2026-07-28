@@ -21,27 +21,27 @@ export default function Cursor() {
     const move = (e) => {
       mouseX = e.clientX
       mouseY = e.clientY
-      dot.style.transform = `translate(${mouseX - 5}px, ${mouseY - 5}px)`
+      dot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`
     }
 
     const loop = () => {
       ringX += (mouseX - ringX) * 0.18
       ringY += (mouseY - ringY) * 0.18
-      ring.style.transform = `translate(${ringX - 15}px, ${ringY - 15}px)`
+      ring.style.transform = `translate(${ringX - 14}px, ${ringY - 14}px)`
       raf = requestAnimationFrame(loop)
     }
 
     const over = (e) => {
       if (e.target.closest('a, button, [data-cursor]')) {
-        ring.style.width = '48px'
-        ring.style.height = '48px'
-        ring.style.borderColor = 'var(--red)'
+        ring.style.width = '44px'
+        ring.style.height = '44px'
+        ring.style.borderColor = 'var(--accent)'
       }
     }
     const out = () => {
-      ring.style.width = '30px'
-      ring.style.height = '30px'
-      ring.style.borderColor = 'var(--ink)'
+      ring.style.width = '28px'
+      ring.style.height = '28px'
+      ring.style.borderColor = 'var(--ink-faint)'
     }
 
     window.addEventListener('mousemove', move)

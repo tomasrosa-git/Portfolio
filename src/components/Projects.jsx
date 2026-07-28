@@ -1,20 +1,27 @@
 import { motion } from 'framer-motion'
-import { Lock, ArrowUpRight, Github } from 'lucide-react'
+import { ArrowUpRight, Github, Globe, Lock } from 'lucide-react'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
 import { projects } from '../data'
 
-const rots = ['-1.2deg', '1deg', '-0.8deg', '1.4deg']
-
 export default function Projects() {
-  return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
-      <SectionHeading index="03" kicker="lo que construí" title="Proyectos" />
+  const featured = projects.filter((p) => p.featured)
+  const rest = projects.filter((p) => !p.featured)
 
-      <div className="grid gap-8 md:grid-cols-2">
-        {projects.map((p, i) => (
+  return (
+    <section id="projects" className="relative mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-20">
+      <SectionHeading index="02" title="Proyectos" note="Trabajo seleccionado" />
+
+      {featured.map((p) => (
+        <Reveal key={p.title}>
+          <FeaturedProject project={p} />
+        </Reveal>
+      ))}
+
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        {rest.map((p, i) => (
           <Reveal key={p.title} delay={i * 0.08}>
-            <ProjectCard project={p} rot={rots[i % rots.length]} />
+            <CompactProject project={p} />
           </Reveal>
         ))}
       </div>
@@ -22,59 +29,127 @@ export default function Projects() {
   )
 }
 
-function ProjectCard({ project, rot }) {
-  const isPrivate = project.private
-
+function FeaturedProject({ project }) {
   return (
     <motion.article
-      whileHover={{ rotate: 0, y: -6 }}
-      style={{ transform: `rotate(${rot})` }}
-      transition={{ type: 'spring', stiffness: 250, damping: 20 }}
-      className="paper relative flex h-full flex-col rounded-sm p-7"
+      whileHover={{ y: -3 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+      className="surface group relative p-7 sm:p-10"
     >
-      {/* cinta arriba */}
-      <span className="tape" style={{ top: -13, left: 28, transform: 'rotate(-7deg)' }} />
+      <span className="absolute right-0 top-0 bg-[var(--accent)] px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-[var(--paper)]">
+        Destacado
+      </span>
 
-      {/* sello de privado */}
-      {isPrivate && (
-        <motion.span
-          initial={{ scale: 1.6, opacity: 0, rotate: -20 }}
-          whileInView={{ scale: 1, opacity: 0.9, rotate: -14 }}
-          viewport={{ once: true }}
-          transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.2 }}
-          className="stamp absolute bottom-6 right-5 z-10 inline-flex items-center gap-1.5 text-sm"
-        >
-          PRIVADO <Lock size={14} />
-        </motion.span>
-      )}
+      <div className="grid gap-8 lg:grid-cols-[1.35fr_1fr]">
+        <div>
+          <p className="label">{project.subtitle}</p>
+          <h3 className="mt-2 font-display text-4xl sm:text-5xl">{project.title}</h3>
+          <p className="mt-5 max-w-prose leading-relaxed text-[var(--ink-muted)]">
+            {project.description}
+          </p>
 
-      <div className="mb-3 flex items-baseline gap-3">
-        <h3 className="font-marker text-3xl text-[var(--ink)]">{project.title}</h3>
-        <span className="font-hand text-xl text-[var(--ink-soft)]">'{project.year.slice(2)}</span>
+          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+            <ProjectAction project={project} />
+            <span className="label">{project.year}</span>
+          </div>
+        </div>
+
+        <div className="lg:border-l lg:border-[var(--rule)] lg:pl-8">
+          <p className="label">Detalles técnicos</p>
+          <ul className="mt-4 space-y-3">
+            {project.highlights.map((h) => (
+              <li key={h} className="flex gap-3 text-sm leading-relaxed text-[var(--ink-muted)]">
+                <span className="mt-2 h-px w-3 shrink-0 bg-[var(--rule-strong)]" />
+                {h}
+              </li>
+            ))}
+          </ul>
+
+          <TagList tags={project.tags} className="mt-6" />
+        </div>
+      </div>
+    </motion.article>
+  )
+}
+
+function CompactProject({ project }) {
+  return (
+    <motion.article
+      whileHover={{ y: -3 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+      className="surface flex h-full flex-col p-6"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="label">{project.subtitle}</p>
+          <h3 className="mt-1.5 font-display text-2xl">{project.title}</h3>
+        </div>
+        <span className="label shrink-0">{project.year}</span>
       </div>
 
-      <p className="flex-1 font-hand2 text-lg leading-relaxed text-[var(--ink-soft)]">
+      <p className="mt-4 flex-1 text-sm leading-relaxed text-[var(--ink-muted)]">
         {project.description}
       </p>
 
-      <div className="mt-5 flex flex-wrap gap-2 border-t border-dashed border-[var(--ink)]/20 pt-4">
-        {project.tags.map((t) => (
-          <span key={t} className="kraft rounded-sm px-2.5 py-1 font-type text-xs text-[var(--ink)]">
-            {t}
-          </span>
-        ))}
-      </div>
+      <TagList tags={project.tags} className="mt-5" />
 
-      {!isPrivate && (
+      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-[var(--rule)] pt-4">
+        <ProjectAction project={project} />
+      </div>
+    </motion.article>
+  )
+}
+
+function ProjectAction({ project }) {
+  return (
+    <>
+      {project.liveUrl && (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="group/live inline-flex items-center gap-2 bg-[var(--ink)] px-5 py-2.5 text-sm text-[var(--paper)] transition-opacity hover:opacity-85"
+        >
+          <Globe size={14} />
+          Ver en vivo
+          <ArrowUpRight
+            size={13}
+            className="transition-transform duration-300 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5"
+          />
+        </a>
+      )}
+
+      {project.private ? (
+        <span className="inline-flex items-center gap-2 text-sm text-[var(--ink-faint)]">
+          <Lock size={14} /> Repositorio privado
+        </span>
+      ) : (
         <a
           href={project.link}
           target="_blank"
           rel="noreferrer"
-          className="mt-5 inline-flex w-fit items-center gap-2 border-2 border-[var(--ink)] bg-[var(--paper-2)] px-4 py-2 font-marker text-base text-[var(--ink)] transition-transform hover:rotate-1 hover:scale-105"
+          className="group/link inline-flex items-center gap-2 text-sm transition-colors hover:text-[var(--accent)]"
         >
-          <Github size={16} /> Ver código <ArrowUpRight size={15} />
+          <Github size={15} />
+          <span className="link-underline">Ver código</span>
+          <ArrowUpRight
+            size={14}
+            className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+          />
         </a>
       )}
-    </motion.article>
+    </>
+  )
+}
+
+function TagList({ tags, className = '' }) {
+  return (
+    <ul className={`flex flex-wrap gap-x-3 gap-y-1.5 ${className}`}>
+      {tags.map((t) => (
+        <li key={t} className="font-mono text-xs text-[var(--ink-faint)]">
+          {t}
+        </li>
+      ))}
+    </ul>
   )
 }

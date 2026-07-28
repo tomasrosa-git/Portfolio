@@ -1,14 +1,15 @@
 import Reveal from './Reveal'
 
-export default function SectionHeading({ index, kicker, title }) {
+export default function SectionHeading({ index, title, note }) {
   return (
     <Reveal className="mb-12">
-      <p className="font-hand text-2xl text-[var(--ink-soft)]">
-        <span className="text-red-marker">{index}.</span> {kicker}
-      </p>
-      <h2 className="mt-1 inline-block font-marker text-4xl text-red-marker scribble sm:text-5xl">
-        {title}
-      </h2>
+      <div className="flex items-baseline justify-between gap-6 border-b border-[var(--rule)] pb-4">
+        <div className="flex items-baseline gap-4">
+          <span className="label">{index}</span>
+          <h2 className="font-display text-3xl sm:text-4xl">{title}</h2>
+        </div>
+        {note && <span className="label hidden shrink-0 sm:block">{note}</span>}
+      </div>
     </Reveal>
   )
 }

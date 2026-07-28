@@ -3,17 +3,20 @@ import { profile } from '../data'
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 border-t-2 border-dashed border-[var(--ink)]/30 px-5 py-8 sm:px-8">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-        <p className="font-hand2 text-lg text-[var(--ink-soft)]">
-          © {new Date().getFullYear()} {profile.name} — hecho a mano con{' '}
-          <span className="font-hand text-2xl text-red-marker">React</span>
+    <footer className="relative z-10 border-t border-[var(--rule)]">
+      <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-4 px-6 py-8 sm:flex-row sm:items-center sm:px-8">
+        <p className="label">
+          © {new Date().getFullYear()} {profile.name}
         </p>
         <a
           href="#top"
-          className="inline-flex items-center gap-2 border-2 border-[var(--ink)] bg-[var(--paper-2)] px-4 py-2 font-marker text-base text-[var(--ink)] transition-transform hover:scale-105"
+          className="group inline-flex items-center gap-2 text-sm text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
         >
-          Volver arriba <ArrowUp size={15} />
+          <span className="link-underline">Volver arriba</span>
+          <ArrowUp
+            size={14}
+            className="transition-transform duration-300 group-hover:-translate-y-0.5"
+          />
         </a>
       </div>
     </footer>
