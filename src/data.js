@@ -4,9 +4,7 @@
 
 export const profile = {
   name: 'Tomás Rosa',
-  role: 'Desarrollador full-stack',
-  tagline:
-    'Diseño y construyo aplicaciones web de punta a punta, desde la base de datos hasta la interfaz.',
+  role: 'Desarrollador Full-Stack',
   location: 'Villa María, Córdoba, Argentina',
   email: 'rosatomas.contact@gmail.com',
   github: 'https://github.com/tomasrosa-git',
@@ -15,7 +13,7 @@ export const profile = {
 
 export const about = {
   intro:
-    'Desarrollo aplicaciones web full-stack con foco en arquitecturas claras y productos que funcionen en producción, no solo en la demo.',
+    'desarrollador full-stack de Villa María, Córdoba. Construyo aplicaciones web con foco en arquitecturas claras y productos que funcionen en producción, no solo en la demo.',
   paragraphs: [
     'Trabajo principalmente sobre el ecosistema TypeScript —React y Next.js en el frontend, Node en el backend— con PostgreSQL como base y despliegues reales en la nube.',
     'Estoy cursando el cuarto año de Ingeniería en Sistemas de Información en la UTN Facultad Regional Villa María, donde ya obtuve el título intermedio de Analista en Sistemas.',
@@ -60,7 +58,6 @@ export const projects = [
     featured: true,
     private: false,
     link: 'https://github.com/tomasrosa-git/Raccord',
-    liveUrl: 'https://raccord.com.ar',
     year: '2026',
     description:
       'Aplicación web que reúne información de cine en un solo lugar: catálogo de películas, fichas de personas, premios y en qué plataformas ver cada título. Integra la API de TMDB para catálogo, imágenes y proveedores de streaming, y Wikidata/Wikipedia para premios y biografías.',

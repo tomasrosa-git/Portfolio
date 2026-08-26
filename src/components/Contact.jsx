@@ -18,20 +18,19 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-20">
-      <SectionHeading index="05" title="Contacto" note="Hablemos" />
+    <section id="contact" className="relative mx-auto max-w-5xl px-6 py-24 md:py-32">
+      <SectionHeading title="¿Hablamos?" />
 
       <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
         <Reveal>
-          <p className="max-w-xl text-2xl font-medium leading-snug tracking-[-0.015em] sm:text-[1.9rem]">
-            ¿Tenés un proyecto, una pasantía o una búsqueda abierta? Escribime y te respondo
-            a la brevedad.
+          <p className="max-w-xl text-2xl font-bold leading-snug tracking-tight md:text-3xl">
+            Estoy abierto a nuevas oportunidades. No dudes en contactarme.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <a
               href={`mailto:${profile.email}`}
-              className="group inline-flex items-center gap-2 bg-[var(--ink)] px-6 py-3 text-sm text-[var(--paper)] transition-opacity hover:opacity-85"
+              className="btn-accent inline-flex items-center gap-2 px-6 py-3 text-sm"
             >
               <Mail size={15} />
               {profile.email}
@@ -39,21 +38,25 @@ export default function Contact() {
             <button
               onClick={copy}
               aria-label="Copiar dirección de correo"
-              className="inline-flex items-center gap-2 border border-[var(--rule-strong)] px-5 py-3 text-sm transition-colors hover:bg-[var(--paper-raised)]"
+              className="inline-flex items-center gap-2 rounded-lg border border-[var(--border)] px-5 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
             >
-              {copied ? <Check size={14} className="text-[var(--accent)]" /> : <Copy size={14} />}
+              {copied ? (
+                <Check size={14} style={{ color: 'var(--accent)' }} />
+              ) : (
+                <Copy size={14} />
+              )}
               {copied ? 'Copiado' : 'Copiar'}
             </button>
           </div>
         </Reveal>
 
         <Reveal delay={0.12}>
-          <div className="border-t border-[var(--ink)]">
+          <div className="surface divide-y divide-[var(--border)] px-6">
             <ContactRow href={profile.linkedin} label="LinkedIn" icon={<Linkedin size={15} />} />
             <ContactRow href={profile.github} label="GitHub" icon={<Github size={15} />} />
-            <div className="flex items-baseline justify-between gap-4 border-b border-[var(--rule)] py-4">
-              <span className="label">Ubicación</span>
-              <span className="text-sm text-[var(--ink-muted)]">Villa María, AR</span>
+            <div className="flex items-baseline justify-between gap-4 py-4">
+              <span className="text-sm text-[var(--text-muted)]">Ubicación</span>
+              <span className="text-sm text-[var(--text-secondary)]">Villa María, AR</span>
             </div>
           </div>
         </Reveal>
@@ -68,7 +71,7 @@ function ContactRow({ href, label, icon }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="group flex items-center justify-between gap-4 border-b border-[var(--rule)] py-4 transition-colors hover:text-[var(--accent)]"
+      className="group flex items-center justify-between gap-4 py-4 text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
     >
       <span className="inline-flex items-center gap-2.5 text-sm">
         {icon}
@@ -76,7 +79,7 @@ function ContactRow({ href, label, icon }) {
       </span>
       <ArrowUpRight
         size={15}
-        className="text-[var(--ink-faint)] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--accent)]"
+        className="text-[var(--text-muted)] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
       />
     </a>
   )

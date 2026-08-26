@@ -1,29 +1,53 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Geist', 'Inter', system-ui, sans-serif;
-  --font-sans: 'Geist', 'Inter', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
-
-  --color-paper: #f6f4ef;
-  --color-ink: #171614;
-  --color-accent: #a4442f;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
-:root {
-  /* superficies */
-  --paper: #f6f4ef;
-  --paper-raised: #fdfcfa;
+/* ── Tema oscuro (por defecto) ───────────────────────── */
+:root,
+:root[data-theme='dark'] {
+  --bg: #0a0a0a;
+  --surface: #141416;
+  --surface-hover: #1a1a1d;
 
-  /* tinta */
-  --ink: #171614;
-  --ink-muted: #6a655d;
-  --ink-faint: #9a948a;
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1a6;
+  --text-muted: #6e6e73;
 
-  /* acento y líneas */
-  --accent: #a4442f;
-  --rule: #ddd8ce;
-  --rule-strong: #c4bdb1;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  --hover-tint: rgba(255, 255, 255, 0.04);
+
+  --accent: #facc15;
+  --accent-hover: #eab308;
+  --accent-glow: rgba(250, 204, 21, 0.15);
+  --accent-fg: #050505;
+
+  color-scheme: dark;
+}
+
+/* ── Tema claro ──────────────────────────────────────── */
+:root[data-theme='light'] {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-hover: #f4f4f5;
+
+  --text-primary: #0a0a0a;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+
+  --border: rgba(0, 0, 0, 0.1);
+  --border-hover: rgba(0, 0, 0, 0.18);
+  --hover-tint: rgba(0, 0, 0, 0.03);
+
+  /* El amarillo puro no contrasta sobre fondo claro: se oscurece para texto y bordes. */
+  --accent: #a16207;
+  --accent-hover: #854d0e;
+  --accent-glow: rgba(161, 98, 7, 0.12);
+  --accent-fg: #050505;
+
+  color-scheme: light;
 }
 
 * {
@@ -36,138 +60,108 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--paper);
-  color: var(--ink);
+  background-color: var(--bg);
+  color: var(--text-primary);
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
-  line-height: 1.7;
-  letter-spacing: -0.005em;
+  font-size: 1rem;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-}
-
-/* Grano de papel muy sutil — textura, no decoración */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.35;
-  background-image: radial-gradient(rgba(120, 105, 80, 0.07) 1px, transparent 1px);
-  background-size: 3px 3px;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 ::selection {
   background: var(--accent);
-  color: var(--paper);
+  color: var(--accent-fg);
 }
 
 ::-webkit-scrollbar {
-  width: 11px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--paper);
+  background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--rule-strong);
-  border: 3px solid var(--paper);
+  background: var(--border-hover);
+  border: 3px solid var(--bg);
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ink-faint);
+  background: var(--text-muted);
 }
 
-/* ── Tipografía ───────────────────────────── */
-.font-display {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-}
-.font-mono {
-  font-family: var(--font-mono);
-}
+/* ── Piezas reutilizables ────────────────────────────── */
 
-/* Etiqueta de metadatos: mono, chica, espaciada */
-.label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-
-/* Línea editorial */
-.rule {
-  border: 0;
-  border-top: 1px solid var(--rule);
-}
-
-/* Enlace con subrayado que crece */
-.link-underline {
-  position: relative;
-  text-decoration: none;
-}
-.link-underline::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.link-underline:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* Superficie elevada (fichas de proyecto) */
+/* Superficie de tarjeta */
 .surface {
-  background: var(--paper-raised);
-  border: 1px solid var(--rule);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+.surface:hover {
+  border-color: var(--border-hover);
 }
 
-/* ── Animaciones ──────────────────────────── */
+/* Píldora de tecnología */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.pill:hover {
+  border-color: var(--border-hover);
+  color: var(--text-secondary);
+}
+
+/* Línea corta de acento que abre las secciones */
+.accent-rule {
+  width: 4rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* Enlace con subrayado que se pinta de acento */
+.link-underline {
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.link-underline:hover {
+  color: var(--text-primary);
+  border-bottom-color: var(--accent);
+}
+
+/* Botón sólido de acento */
+.btn-accent {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.btn-accent:hover {
+  background: var(--accent-hover);
+}
+
+/* ── Animaciones ─────────────────────────────────────── */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 .animate-marquee {
   animation: marquee 45s linear infinite;
-}
-
-/* Cursor mínimo (solo desktop con puntero fino) */
-@media (hover: hover) and (pointer: fine) {
-  body {
-    cursor: none;
-  }
-  .cursor-dot,
-  .cursor-ring {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    border-radius: 50%;
-  }
-  .cursor-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--ink);
-  }
-  .cursor-ring {
-    width: 28px;
-    height: 28px;
-    border: 1px solid var(--ink-faint);
-    transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

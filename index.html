@@ -10,9 +10,22 @@
     <meta property="og:description" content="Aplicaciones web con TypeScript, React, Next.js y Node. Villa María, Córdoba, Argentina." />
     <meta property="og:type" content="website" />
     <title>Tomás Rosa — Portfolio</title>
+    <meta name="theme-color" content="#0a0a0a" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      // Aplica el tema antes del primer paint para evitar el flash de color.
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme')
+          var theme = saved || 'dark'
+          document.documentElement.dataset.theme = theme
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark'
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

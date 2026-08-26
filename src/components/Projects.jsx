@@ -9,8 +9,11 @@ export default function Projects() {
   const rest = projects.filter((p) => !p.featured)
 
   return (
-    <section id="projects" className="relative mx-auto max-w-5xl px-6 py-16 sm:px-8 sm:py-20">
-      <SectionHeading index="02" title="Proyectos" note="Trabajo seleccionado" />
+    <section id="projects" className="relative mx-auto max-w-5xl px-6 py-24 md:py-32">
+      <SectionHeading
+        title="Proyectos"
+        description="Lo que construí, desde la base de datos hasta la interfaz."
+      />
 
       {featured.map((p) => (
         <Reveal key={p.title}>
@@ -34,32 +37,40 @@ function FeaturedProject({ project }) {
     <motion.article
       whileHover={{ y: -3 }}
       transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-      className="surface group relative p-7 sm:p-10"
+      className="surface relative overflow-hidden p-7 md:p-10"
     >
-      <span className="absolute right-0 top-0 bg-[var(--accent)] px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-[var(--paper)]">
+      <span
+        className="absolute right-0 top-0 rounded-bl-lg px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-wider"
+        style={{ background: 'var(--accent)', color: 'var(--accent-fg)' }}
+      >
         Destacado
       </span>
 
       <div className="grid gap-8 lg:grid-cols-[1.35fr_1fr]">
         <div>
-          <p className="label">{project.subtitle}</p>
-          <h3 className="mt-2 font-display text-4xl sm:text-5xl">{project.title}</h3>
-          <p className="mt-5 max-w-prose leading-relaxed text-[var(--ink-muted)]">
+          <p className="text-sm text-[var(--text-muted)]">{project.subtitle}</p>
+          <h3 className="mt-2 text-4xl font-extrabold tracking-tighter md:text-5xl">
+            {project.title}
+          </h3>
+          <p className="mt-5 max-w-prose leading-relaxed text-[var(--text-secondary)]">
             {project.description}
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
             <ProjectAction project={project} />
-            <span className="label">{project.year}</span>
+            <span className="text-sm text-[var(--text-muted)]">{project.year}</span>
           </div>
         </div>
 
-        <div className="lg:border-l lg:border-[var(--rule)] lg:pl-8">
-          <p className="label">Detalles técnicos</p>
+        <div className="lg:border-l lg:border-[var(--border)] lg:pl-8">
+          <p className="text-sm text-[var(--text-muted)]">Detalles técnicos</p>
           <ul className="mt-4 space-y-3">
             {project.highlights.map((h) => (
-              <li key={h} className="flex gap-3 text-sm leading-relaxed text-[var(--ink-muted)]">
-                <span className="mt-2 h-px w-3 shrink-0 bg-[var(--rule-strong)]" />
+              <li
+                key={h}
+                className="flex gap-3 text-sm leading-relaxed text-[var(--text-secondary)]"
+              >
+                <span className="mt-2 h-px w-3 shrink-0 bg-[var(--accent)]" />
                 {h}
               </li>
             ))}
@@ -81,19 +92,19 @@ function CompactProject({ project }) {
     >
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="label">{project.subtitle}</p>
-          <h3 className="mt-1.5 font-display text-2xl">{project.title}</h3>
+          <p className="text-sm text-[var(--text-muted)]">{project.subtitle}</p>
+          <h3 className="mt-1.5 text-2xl font-extrabold tracking-tighter">{project.title}</h3>
         </div>
-        <span className="label shrink-0">{project.year}</span>
+        <span className="shrink-0 text-sm text-[var(--text-muted)]">{project.year}</span>
       </div>
 
-      <p className="mt-4 flex-1 text-sm leading-relaxed text-[var(--ink-muted)]">
+      <p className="mt-4 flex-1 text-sm leading-relaxed text-[var(--text-secondary)]">
         {project.description}
       </p>
 
       <TagList tags={project.tags} className="mt-5" />
 
-      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-[var(--rule)] pt-4">
+      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-[var(--border)] pt-4">
         <ProjectAction project={project} />
       </div>
     </motion.article>
@@ -108,7 +119,7 @@ function ProjectAction({ project }) {
           href={project.liveUrl}
           target="_blank"
           rel="noreferrer"
-          className="group/live inline-flex items-center gap-2 bg-[var(--ink)] px-5 py-2.5 text-sm text-[var(--paper)] transition-opacity hover:opacity-85"
+          className="btn-accent group/live inline-flex items-center gap-2 px-5 py-2.5 text-sm"
         >
           <Globe size={14} />
           Ver en vivo
@@ -120,7 +131,7 @@ function ProjectAction({ project }) {
       )}
 
       {project.private ? (
-        <span className="inline-flex items-center gap-2 text-sm text-[var(--ink-faint)]">
+        <span className="inline-flex items-center gap-2 text-sm text-[var(--text-muted)]">
           <Lock size={14} /> Repositorio privado
         </span>
       ) : (
@@ -128,12 +139,12 @@ function ProjectAction({ project }) {
           href={project.link}
           target="_blank"
           rel="noreferrer"
-          className="group/link inline-flex items-center gap-2 text-sm transition-colors hover:text-[var(--accent)]"
+          className="link-underline group/link inline-flex items-center gap-2 text-sm text-[var(--text-secondary)]"
         >
           <Github size={15} />
-          <span className="link-underline">Ver código</span>
+          Ver código
           <ArrowUpRight
-            size={14}
+            size={13}
             className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
           />
         </a>
@@ -144,9 +155,9 @@ function ProjectAction({ project }) {
 
 function TagList({ tags, className = '' }) {
   return (
-    <ul className={`flex flex-wrap gap-x-3 gap-y-1.5 ${className}`}>
+    <ul className={`flex flex-wrap gap-2 ${className}`}>
       {tags.map((t) => (
-        <li key={t} className="font-mono text-xs text-[var(--ink-faint)]">
+        <li key={t} className="pill">
           {t}
         </li>
       ))}
