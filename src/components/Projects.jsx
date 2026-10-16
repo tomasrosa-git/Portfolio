@@ -15,15 +15,21 @@ export default function Projects() {
         description="Lo que construí, desde la base de datos hasta la interfaz."
       />
 
-      {featured.map((p) => (
-        <Reveal key={p.title}>
-          <FeaturedProject project={p} />
-        </Reveal>
-      ))}
+      <div className="space-y-6">
+        {featured.map((p) => (
+          <Reveal key={p.title}>
+            <FeaturedProject project={p} />
+          </Reveal>
+        ))}
+      </div>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         {rest.map((p, i) => (
-          <Reveal key={p.title} delay={i * 0.08}>
+          <Reveal
+            key={p.title}
+            delay={i * 0.08}
+            className={rest.length % 2 === 1 && i === rest.length - 1 ? 'md:col-span-2' : ''}
+          >
             <CompactProject project={p} />
           </Reveal>
         ))}

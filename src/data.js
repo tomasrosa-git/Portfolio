@@ -53,6 +53,24 @@ export const techStack = [
 
 export const projects = [
   {
+    title: 'Susurro',
+    subtitle: 'Dictado por voz para macOS',
+    featured: true,
+    private: false,
+    link: 'https://github.com/tomasrosa-git/Susurro',
+    year: '2026',
+    description:
+      'App nativa de barra de menú: mantenés una tecla, hablás y el texto aparece donde está el cursor, en cualquier app. Transcribe localmente con whisper.cpp, limpia muletillas con un LLM y tiene un modo comando que reescribe o genera texto por voz.',
+    highlights: [
+      'Swift nativo con AppKit, compilado con SwiftPM sin Xcode.',
+      'Atajo global con un event tap de Core Graphics, incluida la tecla fn.',
+      'Transcripción local con whisper.cpp en medio segundo, sin conexión.',
+      'LLM vía Groq para limpiar el texto y para el modo comando, con la salida validada antes de pegarla.',
+      'Lógica central con tests unitarios que corren en CI con GitHub Actions.',
+    ],
+    tags: ['Swift', 'AppKit', 'whisper.cpp', 'LLM'],
+  },
+  {
     title: 'Raccord',
     subtitle: 'Plataforma de cine',
     featured: true,
@@ -68,18 +86,6 @@ export const projects = [
       'Dominio propio .com.ar delegado a Cloudflare para CDN y cacheo.',
     ],
     tags: ['Next.js', 'TypeScript', 'Express', 'Prisma', 'PostgreSQL', 'Tailwind'],
-  },
-  {
-    title: 'Susurro',
-    subtitle: 'Dictado por voz para macOS',
-    featured: false,
-    private: false,
-    link: 'https://github.com/tomasrosa-git/Susurro',
-    year: '2026',
-    description:
-      'App nativa de barra de menú: mantenés una tecla, hablás y el texto aparece donde está el cursor, en cualquier app. Transcribe localmente con whisper.cpp, limpia muletillas con un LLM y tiene un modo comando que reescribe o genera texto por voz.',
-    highlights: [],
-    tags: ['Swift', 'AppKit', 'whisper.cpp', 'LLM'],
   },
   {
     title: 'MatePymes',
