@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion'
 import { Github, Linkedin } from 'lucide-react'
 import { profile } from '../data'
+import GradientASCII from './GradientASCII'
+import useTheme from '../hooks/useTheme'
+
+const ASCII_COLORS = ['#854d0e', '#fefce8', '#fef08a', '#facc15']
 
 const container = {
   hidden: {},
@@ -12,12 +16,53 @@ const item = {
 }
 
 export default function Hero() {
+  const theme = useTheme()
+
   return (
     <section
       id="top"
-      className="relative mx-auto flex min-h-[100svh] max-w-5xl flex-col justify-center px-6 py-32"
+      className="relative flex min-h-[100svh] items-center overflow-hidden py-32"
     >
-      <motion.div variants={container} initial="hidden" animate="show">
+      {/* El componente escucha el puntero en window, así que no pierde interacción
+          por pointer-events-none; eso mantiene clickeables los enlaces de encima. */}
+      <div className="pointer-events-none absolute inset-0">
+        <GradientASCII
+          colors={ASCII_COLORS}
+          shape="horizon"
+          characters=" =+xX0S8#@"
+          cellSize={18}
+          density={0.8}
+          gradientOpacity={0.7}
+          lightMode={theme === 'light'}
+        />
+        {/* En desktop el texto ocupa la mitad izquierda, así que el scrim es horizontal.
+            En mobile ocupa todo el ancho: ahí conviene atenuar parejo o el efecto no se ve. */}
+        <div
+          className="absolute inset-0 md:hidden"
+          style={{
+            background: [
+              'linear-gradient(to bottom, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 14%, transparent 34%)',
+              'linear-gradient(to top, var(--bg) 8%, color-mix(in srgb, var(--bg) 70%, transparent) 42%, color-mix(in srgb, var(--bg) 45%, transparent) 100%)',
+            ].join(','),
+          }}
+        />
+        <div
+          className="absolute inset-0 hidden md:block"
+          style={{
+            background: [
+              'linear-gradient(to bottom, var(--bg) 0%, color-mix(in srgb, var(--bg) 60%, transparent) 9%, transparent 20%)',
+              'linear-gradient(to right, var(--bg) 0%, color-mix(in srgb, var(--bg) 70%, transparent) 45%, transparent 75%)',
+            ].join(','),
+          }}
+        />
+      </div>
+
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="relative mx-auto w-full max-w-5xl px-6"
+      >
         <motion.div variants={item} className="accent-rule mb-12 md:mb-16" />
 
         <motion.h1
