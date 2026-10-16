@@ -70,6 +70,18 @@ export const projects = [
     tags: ['Next.js', 'TypeScript', 'Express', 'Prisma', 'PostgreSQL', 'Tailwind'],
   },
   {
+    title: 'Susurro',
+    subtitle: 'Dictado por voz para macOS',
+    featured: false,
+    private: false,
+    link: 'https://github.com/tomasrosa-git/Susurro',
+    year: '2026',
+    description:
+      'App nativa de barra de menú: mantenés una tecla, hablás y el texto aparece donde está el cursor, en cualquier app. Transcribe localmente con whisper.cpp, limpia muletillas con un LLM y tiene un modo comando que reescribe o genera texto por voz.',
+    highlights: [],
+    tags: ['Swift', 'AppKit', 'whisper.cpp', 'LLM'],
+  },
+  {
     title: 'MatePymes',
     subtitle: 'Sistema de gestión',
     featured: false,
