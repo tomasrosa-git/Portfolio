@@ -23,29 +23,32 @@
   --accent-hover: #eab308;
   --accent-glow: rgba(250, 204, 21, 0.15);
   --accent-fg: #050505;
+  --accent-ink: #facc15;
 
   color-scheme: dark;
 }
 
-/* ── Tema claro ──────────────────────────────────────── */
+/* ── Tema claro: papel cálido ────────────────────────── */
 :root[data-theme='light'] {
-  --bg: #fafafa;
-  --surface: #ffffff;
-  --surface-hover: #f4f4f5;
+  --bg: #f7f5f0;
+  --surface: #fffdf9;
+  --surface-hover: #faf7f1;
 
-  --text-primary: #0a0a0a;
-  --text-secondary: #52525b;
-  --text-muted: #71717a;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #726b65;
 
-  --border: rgba(0, 0, 0, 0.1);
-  --border-hover: rgba(0, 0, 0, 0.18);
-  --hover-tint: rgba(0, 0, 0, 0.03);
+  --border: rgba(68, 54, 32, 0.12);
+  --border-hover: rgba(68, 54, 32, 0.22);
+  --hover-tint: rgba(68, 54, 32, 0.04);
 
-  /* El amarillo puro no contrasta sobre fondo claro: se oscurece para texto y bordes. */
-  --accent: #a16207;
-  --accent-hover: #854d0e;
-  --accent-glow: rgba(161, 98, 7, 0.12);
-  --accent-fg: #050505;
+  /* El amarillo puro sigue en rellenos (badge, botón, selección), pero no contrasta como
+     línea o texto sobre papel: para eso va --accent-ink, más oscuro. */
+  --accent: #facc15;
+  --accent-hover: #eab308;
+  --accent-glow: rgba(250, 204, 21, 0.2);
+  --accent-fg: #1c1917;
+  --accent-ink: #ca8a04;
 
   color-scheme: light;
 }
@@ -126,7 +129,7 @@ body {
 .accent-rule {
   width: 4rem;
   height: 1px;
-  background: var(--accent);
+  background: var(--accent-ink);
 }
 
 /* Enlace con subrayado que se pinta de acento */
@@ -136,7 +139,7 @@ body {
 }
 .link-underline:hover {
   color: var(--text-primary);
-  border-bottom-color: var(--accent);
+  border-bottom-color: var(--accent-ink);
 }
 
 /* Botón sólido de acento */

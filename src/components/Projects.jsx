@@ -76,7 +76,7 @@ function FeaturedProject({ project }) {
                 key={h}
                 className="flex gap-3 text-sm leading-relaxed text-[var(--text-secondary)]"
               >
-                <span className="mt-2 h-px w-3 shrink-0 bg-[var(--accent)]" />
+                <span className="mt-2 h-px w-3 shrink-0 bg-[var(--accent-ink)]" />
                 {h}
               </li>
             ))}
