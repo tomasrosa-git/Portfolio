@@ -44,7 +44,7 @@ export default function TechStack() {
                   className="flex items-center whitespace-nowrap px-5 text-xl font-semibold tracking-tight text-[var(--text-muted)]"
                 >
                   {t.name}
-                  <span className="ml-5 text-[var(--accent)]">/</span>
+                  <span className="ml-5 text-[var(--accent-ink)]">/</span>
                 </span>
               ))}
             </div>

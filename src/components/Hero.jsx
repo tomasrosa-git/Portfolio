@@ -4,7 +4,12 @@ import { profile } from '../data'
 import GradientASCII from './GradientASCII'
 import useTheme from '../hooks/useTheme'
 
-const ASCII_COLORS = ['#854d0e', '#fefce8', '#fef08a', '#facc15']
+const ASCII = {
+  dark: { colors: ['#854d0e', '#fefce8', '#fef08a', '#facc15'], gradientOpacity: 0.7 },
+  // En claro el shader oscurece los glifos según el color: el marrón de la paleta oscura
+  // dejaba una mancha sucia sobre el papel.
+  light: { colors: ['#d97706', '#fffbeb', '#fef3c7', '#fcd34d'], gradientOpacity: 0.45 },
+}
 
 const container = {
   hidden: {},
@@ -27,12 +32,12 @@ export default function Hero() {
           por pointer-events-none; eso mantiene clickeables los enlaces de encima. */}
       <div className="pointer-events-none absolute inset-0">
         <GradientASCII
-          colors={ASCII_COLORS}
+          colors={ASCII[theme].colors}
           shape="horizon"
           characters=" =+xX0S8#@"
           cellSize={18}
           density={0.8}
-          gradientOpacity={0.7}
+          gradientOpacity={ASCII[theme].gradientOpacity}
           lightMode={theme === 'light'}
         />
         {/* En desktop el texto ocupa la mitad izquierda, así que el scrim es horizontal.

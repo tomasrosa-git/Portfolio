@@ -41,7 +41,7 @@ export default function Contact() {
               className="inline-flex items-center gap-2 rounded-lg border border-[var(--border)] px-5 py-3 text-sm text-[var(--text-secondary)] transition-colors hover:border-[var(--border-hover)] hover:text-[var(--text-primary)]"
             >
               {copied ? (
-                <Check size={14} style={{ color: 'var(--accent)' }} />
+                <Check size={14} style={{ color: 'var(--accent-ink)' }} />
               ) : (
                 <Copy size={14} />
               )}
